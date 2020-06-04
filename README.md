@@ -1,3 +1,5 @@
+![Build Status](https://github.com/opwvhk/data-url/workflows/Java%20CI%20with%20Maven/badge.svg)
+
 # data-url
 
 By default, the Java class `java.net.URL` does not support [`data:` URLs](https://www.ietf.org/rfc/rfc2397.txt).

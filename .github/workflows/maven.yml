@@ -16,7 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build with Maven
-      uses: xlui/action-maven-cli/jdk11@master
+    - name: Set up Java
+      uses: actions/setup-java@v1
       with:
-        lifecycle: 'clean verify'
+        java-version: 11
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml

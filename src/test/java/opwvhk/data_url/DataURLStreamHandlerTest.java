@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class DataURLStreamHandlerTest {
-	private static final String TEST_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAQAAAD9CzEMAAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAAEgAAABIAEbJaz4AAABpSURBVFjD7di7DgAQDAVQlf7/L9dmYOigJVevSUScqNRLmrXU0nOH/wHQWZPgke3SDPAB3VpO82JZS/wQESgAqNvD26OcvMEPEQECBAiUAPzz4PCehB8iAgWAPQ+C32r4IUoHhH8Vz4EBtYQGZ1X1QVgAAAAwdEVYdGNvbW1lbnQARWRpdGVkIHdpdGggTHVuYVBpYzogaHR0cDovL2x1bmFwaWMuY29tL70KMtwAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTMtMDYtMDVUMDY6MjE6MjktMDc6MDAv/LCiAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDEzLTA2LTA1VDA2OjIxOjI5LTA3OjAwXqEIHgAAAABJRU5ErkJggg==";
+	private static final String TEST_IMAGE = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
 
 	private opwvhk.data_url.DataURLStreamHandler streamHandler;
 	private URL testURL;

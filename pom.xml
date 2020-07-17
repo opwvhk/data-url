@@ -5,7 +5,7 @@
 
 	<groupId>net.sf.opk</groupId>
 	<artifactId>data-url</artifactId>
-	<version>1.0-RC1</version>
+	<version>1.0</version>
 
 	<name>RFC2397 data: URLs for Java</name>
 	<description>Support for RFC2397 data: URLs by java.net.URL</description>
@@ -132,6 +132,13 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
+						<configuration>
+							<interactive>true</interactive>
+							<gpgArguments>
+								<arg>--pinentry-mode</arg>
+								<arg>loopback</arg>
+							</gpgArguments>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

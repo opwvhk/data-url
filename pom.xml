@@ -12,6 +12,13 @@
 	<url>https://github.com/opwvhk/data-url</url>
 	<inceptionYear>2020</inceptionYear>
 
+	<developers>
+		<developer>
+			<id>opwvhk</id>
+			<name>Oscar Westra van Holthe - Kind</name>
+			<url>http://oscar.westravanholthe.nl/</url>
+		</developer>
+	</developers>
 	<licenses>
 		<license>
 			<name>Apache 2</name>

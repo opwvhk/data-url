@@ -1,5 +1,6 @@
 ![Build Status](https://github.com/opwvhk/data-url/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![license](doc/license-APACHE-2.0-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.sf.opk/data-url/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.sf.opk/data-url)
 
 # data-url
 

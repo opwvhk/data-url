@@ -16,7 +16,6 @@
 		<developer>
 			<id>opwvhk</id>
 			<name>Oscar Westra van Holthe - Kind</name>
-			<url>http://oscar.westravanholthe.nl/</url>
 		</developer>
 	</developers>
 	<licenses>
@@ -28,9 +27,9 @@
 		</license>
 	</licenses>
 	<organization>
-		<!-- Not really an organization, but the owner of the copyrights. -->
+		<!-- Not a real organization, but the owner of the copyrights. -->
 		<name>Oscar Westra van Holthe - Kind</name>
-		<url>http://oscar.westravanholthe.nl/</url>
+		<url>https://github.com/opwvhk/</url>
 	</organization>
 
 	<scm>
@@ -58,19 +57,19 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.5.2</version>
+			<version>5.8.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.15.0</version>
+			<version>3.22.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>3.2.0</version>
+			<version>4.3.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -140,6 +139,7 @@
 							<goal>sign</goal>
 						</goals>
 						<configuration>
+							<passphraseServerId>gpg</passphraseServerId>
 							<interactive>true</interactive>
 							<gpgArguments>
 								<arg>--pinentry-mode</arg>
@@ -155,8 +155,8 @@
 				<version>2.5.2</version>
 				<executions>
 					<!--
-					Ensure the install plugin runs AFTER the gpg plugin, by removing the default execution (which is
-					always executed first), and adding a new one after the gpg plugin in the install phase.
+					Ensure the gpg plugin runs first, by recreating the default execution (which always executes first) after the gpg plugin.
+					This ensures the new execution runs after the gpg plugin execution.
 
 					Can be verified using: mvn fr.jcgay.maven.plugins:buildplan-maven-plugin:list
 					-->

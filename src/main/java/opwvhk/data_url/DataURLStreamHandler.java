@@ -21,56 +21,54 @@ public class DataURLStreamHandler extends URLStreamHandler {
 	public static final String CHARSET_PARAMETER_PREFIX = ";charset=";
 	public static final String DEFAULT_FULL_MIMETYPE = DEFAULT_MIMETYPE + CHARSET_PARAMETER_PREFIX + "US-ASCII";
 	/**
-	 * Regex pattern to match MIME types at the start of a String. The entire match is the MIME type.
+	 * Regex pattern that matches the start of any valid data URL. Returns 2 groups (each of which may be empty): {@code type} and {@code base4}.
 	 */
-	static final Pattern STARTS_WITH_MIME_TYPE_PATTERN;
+	static final Pattern DATA_URL_PATTERN;
 	/**
-	 * Regex pattern to match MIME type parameters. Matching must start at the first semicolon, and will subsequently
-	 * match all parameters. Each match results in two named groups, {@code name} and {@code value}.
+	 * Regex pattern to match MIME type parameters. Matching must start at the first semicolon, and will subsequently match all parameters. Each match results
+	 * in two named groups, {@code name} and {@code value}.
 	 */
 	static final Pattern MIME_TYPE_PARAMETER;
-	private static final String BASE64_PARAMETER = ";base64";
 
 	static {
 		final String token = "[-!#$%&'*+.^_`|~\\da-zA-Z]+";
 		final String quotedString = "\"(?:\\\\.|[^\"\\\\])*\"";
 		final String parameter = token + "=(?:" + token + "|" + quotedString + ")";
 
-		STARTS_WITH_MIME_TYPE_PATTERN = Pattern.compile(
-			"^(?:" + token + "/" + token + "(?:;" + parameter + ")*|;charset=(?:" + token + "|" + quotedString + ")|)");
-		MIME_TYPE_PARAMETER = Pattern.compile(
-			"\\G;(?<name>" + token + ")=(?<value>" + token + "|" + quotedString + ")");
+		DATA_URL_PATTERN = Pattern.compile("^" + PROTOCOL + ":(?<type>(?:" + token + "/" + token + ")?(?:;" + parameter + ")*|)(?<base64>;base64|),");
+		MIME_TYPE_PARAMETER = Pattern.compile("\\G;(?<name>" + token + ")=(?<value>" + token + "|" + quotedString + ")");
 	}
 
 	@Override
 	protected DataURLConnection openConnection(final URL url) {
+		return openConnection(url, null);
+	}
+
+	@Override
+	protected DataURLConnection openConnection(final URL url, final Proxy ignored) {
 		if (!PROTOCOL.equals(url.getProtocol())) {
 			throw new IllegalArgumentException("Unsupported protocol: " + url.getProtocol());
 		}
 
 		final String fullUrl = url.toExternalForm();
-		final String dataUrlSpecific = fullUrl.substring(PROTOCOL.length() + 1);
-		final Matcher mimeTypeMatcher = STARTS_WITH_MIME_TYPE_PATTERN.matcher(dataUrlSpecific);
-		//noinspection ResultOfMethodCallIgnored: the pattern is guaranteed to match the beginning of any string
-		mimeTypeMatcher.find();
-		final String rawMimeType = mimeTypeMatcher.group(0);
+		final Matcher urlMatcher = DATA_URL_PATTERN.matcher(fullUrl);
+		if (!urlMatcher.find()) {
+			throw new IllegalArgumentException("Malformed data URL (expected a comma after the optional MIME type): " + fullUrl);
+		}
+
+		final String rawMimeType = urlMatcher.group("type");
+		final boolean usesBase64 = !urlMatcher.group("base64").isEmpty();
+		final String dataPart = fullUrl.substring(urlMatcher.end());
+
 		final String mimeType;
 		if (rawMimeType.isEmpty()) {
 			mimeType = DEFAULT_FULL_MIMETYPE;
-		} else if (rawMimeType.startsWith(CHARSET_PARAMETER_PREFIX)) {
+		} else if (rawMimeType.startsWith(";")) {
 			mimeType = DEFAULT_MIMETYPE + rawMimeType;
 		} else {
 			mimeType = rawMimeType;
 		}
 
-		final String pastMimeType = dataUrlSpecific.substring(mimeTypeMatcher.end());
-		final boolean usesBase64 = pastMimeType.startsWith(BASE64_PARAMETER);
-		final String pastEncoding = usesBase64 ? pastMimeType.substring(BASE64_PARAMETER.length()) : pastMimeType;
-		if (!pastEncoding.startsWith(",")) {
-			throw new IllegalArgumentException("Malformed data URL (expected a comma after the optional MIME type): " + fullUrl);
-		}
-
-		final String dataPart = pastEncoding.substring(1);
 		final byte[] contents;
 		if (usesBase64) {
 			contents = Base64.getDecoder().decode(dataPart);
@@ -95,10 +93,5 @@ public class DataURLStreamHandler extends URLStreamHandler {
 		}
 		// If we get here, no charset was found. Return the default.
 		return StandardCharsets.US_ASCII;
-	}
-
-	@Override
-	protected DataURLConnection openConnection(final URL url, final Proxy ignored) {
-		return openConnection(url);
 	}
 }

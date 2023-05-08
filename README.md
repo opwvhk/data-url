@@ -13,7 +13,7 @@ By default, the Java class `java.net.URL` does not support `data:` URLs (specifi
 
 As a result, code snippets like this throw a `MalformedURLException` (unknown protocol) on the first line:
 
-```java
+``` java
 java.net.URL url = new java.net.URL("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==");
 java.awt.image.BufferedImage image = javax.imageio.ImageIO.read(URL);
 ```
@@ -23,7 +23,7 @@ java.awt.image.BufferedImage image = javax.imageio.ImageIO.read(URL);
 This library hooks into the Java ServiceLoader architecture for URL stream handlers and provides support for `data:` URLs.
 To use it, simply add it to the classpath.
 
-For e.g. Maven, this means adding this dependency:
+For e.g., Maven, this means adding this dependency:
 
 ```xml
 <dependency>
@@ -35,4 +35,4 @@ For e.g. Maven, this means adding this dependency:
 
 With this dependency on the classpath, the code snippet above succeeds, and reads an image: ![red dot](doc/red-dot-5px.png "red dot")
 
-<span style="font-size: 0.6em">(note that an actual image file is used in this readme because GitHub does not allow `data:`URLs)</span>
+<span style="font-size: 0.6em">(note that an actual image file is used in this readme because GitHub does not allow `data:` URLs)</span>

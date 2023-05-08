@@ -2,64 +2,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>net.sf.opk</groupId>
+		<artifactId>opk-parent</artifactId>
+		<version>7</version>
+	</parent>
 
-	<groupId>net.sf.opk</groupId>
 	<artifactId>data-url</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 
 	<name>RFC2397 data: URLs for Java</name>
 	<description>Support for RFC2397 data: URLs by java.net.URL</description>
-	<url>https://github.com/opwvhk/data-url</url>
 	<inceptionYear>2020</inceptionYear>
-
-	<developers>
-		<developer>
-			<id>opwvhk</id>
-			<name>Oscar Westra van Holthe - Kind</name>
-		</developer>
-	</developers>
-	<licenses>
-		<license>
-			<name>Apache 2</name>
-			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-			<comments>A business-friendly OSS license</comments>
-		</license>
-	</licenses>
-	<organization>
-		<!-- Not a real organization, but the owner of the copyrights. -->
-		<name>Oscar Westra van Holthe - Kind</name>
-		<url>https://github.com/opwvhk/</url>
-	</organization>
-
-	<scm>
-		<connection>scm:git:git@github.com:opwvhk/data-url.git</connection>
-		<developerConnection>scm:git:git@github.com:opwvhk/data-url.git</developerConnection>
-		<url>https://github.com/opwvhk/data-url</url>
-	</scm>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>11</java.version>
+		<maven.compiler.release>11</maven.compiler.release>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.2</version>
+			<version>5.9.3</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.24.1</version>
+			<version>3.24.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -76,18 +47,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.10.1</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<testSource>${java.version}</testSource>
-					<testTarget>${java.version}</testTarget>
-				</configuration>
+				<version>3.11.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.8</version>
+				<version>0.8.10</version>
 				<executions>
 					<execution>
 						<goals>
@@ -96,84 +61,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.4.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>3.0.1</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>install</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-						<configuration>
-							<passphraseServerId>gpg.passphrase</passphraseServerId>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<!--
-					Ensure the gpg plugin runs first, by recreating the default execution (which always executes first) after the gpg plugin.
-					This ensures the new execution runs after the gpg plugin execution.
-
-					Can be verified using: mvn fr.jcgay.maven.plugins:buildplan-maven-plugin:list
-					-->
-					<execution>
-						<id>default-install</id>
-						<phase>none</phase>
-					</execution>
-					<execution>
-						<id>signed-install</id>
-						<goals>
-							<goal>install</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.13</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<!--<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>-->
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

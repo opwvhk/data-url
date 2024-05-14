@@ -1,4 +1,4 @@
-![Build Status](https://github.com/opwvhk/data-url/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Build Status](https://github.com/opwvhk/data-url/workflows/Maven%20Build/badge.svg)
 [![license](doc/license-APACHE-2.0-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.sf.opk/data-url/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.sf.opk/data-url)
 
@@ -21,7 +21,7 @@ java.awt.image.BufferedImage image = javax.imageio.ImageIO.read(URL);
 ## Usage
 
 This library hooks into the Java ServiceLoader architecture for URL stream handlers and provides support for `data:` URLs.
-To use it, simply add it to the classpath.
+To use it, simply add it to the classpath (it has no additional, transitive dependencies).
 
 For e.g., Maven, this means adding this dependency:
 

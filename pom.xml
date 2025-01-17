@@ -9,7 +9,7 @@
 	</parent>
 
 	<artifactId>data-url</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.1</version>
 
 	<name>RFC2397 data: URLs for Java</name>
 	<description>Support for RFC2397 data: URLs by java.net.URL</description>

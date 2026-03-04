@@ -5,15 +5,22 @@
 	<parent>
 		<groupId>net.sf.opk</groupId>
 		<artifactId>opk-parent</artifactId>
-		<version>12</version>
+		<version>15</version>
 	</parent>
 
 	<artifactId>data-url</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 
 	<name>RFC2397 data: URLs for Java</name>
 	<description>Support for RFC2397 data: URLs by java.net.URL</description>
 	<inceptionYear>2020</inceptionYear>
+	<licenses>
+		<license>
+			<name>Apache-2.0</name>
+			<url>https://opensource.org/license/apache-2-0/</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
